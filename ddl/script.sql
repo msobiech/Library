@@ -45,3 +45,5 @@ ALTER TABLE `Book` ADD CONSTRAINT `Book_fk1` FOREIGN KEY (`category_id`) REFEREN
 ALTER TABLE `Rent` ADD CONSTRAINT `Rent_fk0` FOREIGN KEY (`book_id`) REFERENCES `Book`(`book_id`);
 
 ALTER TABLE `Rent` ADD CONSTRAINT `Rent_fk1` FOREIGN KEY (`user_id`) REFERENCES `User`(`user_id`);
+
+commit;
