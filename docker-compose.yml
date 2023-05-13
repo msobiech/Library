@@ -1,38 +1,11 @@
-version: '3'
+version: "3"
 services:
-  db:
-    image: mysql:latest
-    environment:
-      MYSQL_DATABASE: lamp
-      MYSQL_USER: lamp
-      MYSQL_PASSWORD: password
-      MYSQL_ALLOW_EMPTY_PASSWORD: 1
-    volumes:
-      - "./ddl:/docker-entrypoint-initdb.d"
-    networks:
-      - lamp-docker
   www:
-    depends_on:
-      - db
     build: .
-    volumes:
-      - "./:/var/www/html"
     ports:
       - 80:80
       - 443:443
-    networks:
-      - lamp-docker
-  phpmyadmin:
-    depends_on:
-      - db
-    image: phpmyadmin
-    ports:
-      - 8001:80
-    environment:
-      - PMA_HOST=db
-      - PMA_PORT=3306
-    networks:
-      - lamp-docker
-networks:
-  lamp-docker:
-    driver: bridge
+    volumes:
+      - "./www:/var/www/html"
+      - "./db:/var/lib/mysql"
+
