@@ -10,7 +10,7 @@ COPY dock/startservs.sh dock/initperms.sql initdb.sql /
 RUN service mariadb start && \
 	mysql -sfu root < "initperms.sql" && \
 	mysql --password=password --user=root < "initdb.sql" && \
-	mkdir /defmysql && \
+	mkdir -p /defmysql/ && \
 	mv /var/lib/mysql/* /defmysql/
 CMD ["bash", "/startservs.sh"]
 
