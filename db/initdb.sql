@@ -1,41 +1,63 @@
 
-CREATE DATABASE library;
+CREATE DATABASE IF NOT EXISTS library;
 USE library;
 
-CREATE TABLE User (
+CREATE TABLE IF NOT EXISTS User (
                         login varchar(50) NOT NULL UNIQUE,
                         user_id INT NOT NULL AUTO_INCREMENT UNIQUE,
-                        password varchar(50) NOT NULL,
+                        passwordhash varchar(50) NOT NULL,
                         isActive BOOLEAN NOT NULL DEFAULT true,
+                       	permission INT NOT NULL DEFAULT 1,
                         PRIMARY KEY (user_id)
 );
 
-CREATE TABLE Book (
+CREATE TABLE IF NOT EXISTS Book (
                         book_id INT NOT NULL AUTO_INCREMENT,
                         title varchar(50) NOT NULL,
                         author_id INT NOT NULL,
                         category_id INT NOT NULL,
+                        ISBN INT NOT NULL,
                         available BOOLEAN NOT NULL DEFAULT '1',
+                        lowtitle varchar(50) NOT NULL DEFAULT lower(title),
                         PRIMARY KEY (book_id)
 );
 
-CREATE TABLE Rent (
+CREATE INDEX IF NOT EXISTS book_lower_title_idx
+	ON Book (lowtitle);
+
+CREATE INDEX IF NOT EXISTS ISBN_idx
+	ON Book (ISBN);
+	
+	
+CREATE TABLE IF NOT EXISTS Rent (
                         rent_id INT NOT NULL AUTO_INCREMENT,
                         book_id INT NOT NULL,
                         user_id INT NOT NULL,
                         start DATE NOT NULL,
                         end DATE,
-                        PRIMARY KEY (rent_id)
+                        PRIMARY KEY (rent_id),
+                        constraint proper_date
+        			check ((end IS NULL) OR (end >= start))
+                        
 );
 
-CREATE TABLE Author (
+CREATE TABLE IF NOT EXISTS Author (
                           author_id INT NOT NULL AUTO_INCREMENT,
                           name varchar(50) NOT NULL,
                           surname varchar(50) NOT NULL,
+                          lowname varchar(50) NOT NULL DEFAULT lower(name),
+                          lowsurname varchar(50)  NOT NULL DEFAULT lower(surname),
                           PRIMARY KEY (author_id)
 );
 
-CREATE TABLE Category (
+CREATE INDEX IF NOT EXISTS author_lower_name_idx
+	ON Author (lowname);
+	
+CREATE INDEX IF NOT EXISTS author_lower_surname_idx
+	ON Author (lowsurname);
+	
+	
+CREATE TABLE IF NOT EXISTS Category (
                             category_id INT NOT NULL AUTO_INCREMENT,
                             name varchar(50) NOT NULL UNIQUE,
                             description varchar(50) NOT NULL,
