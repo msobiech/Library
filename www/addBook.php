@@ -11,6 +11,7 @@
         $book_title = htmlspecialchars(trim($_POST['book_title']), ENT_QUOTES, "UTF-8");
         $author = htmlspecialchars(trim($_POST['author']), ENT_QUOTES, "UTF-8");
         $genre = htmlspecialchars(trim($_POST['genre']), ENT_QUOTES, "UTF-8");
+        $ISBN = htmlspecialchars(trim($_POST['ISBN']), ENT_QUOTES, "UTF-8");
         if(empty($book_title) || empty($author) || empty($genre)){
             header('Location: bookForm.html');
             exit();
@@ -59,10 +60,11 @@
             $genre_id = $query_res[0]['category_id'];
         }
         //juz mamy id autora i gatunku wiec dodajemy ksiazke do bazy
-        $add_book_query = $db->prepare('INSERT INTO Book (title, author_id, category_id) VALUES (:title, :author_id, :category_id)');
+        $add_book_query = $db->prepare('INSERT INTO Book (title, author_id, category_id, ISBN) VALUES (:title, :author_id, :category_id, :ISBN)');
         $add_book_query->bindValue(':title', $book_title, PDO::PARAM_STR);
         $add_book_query->bindValue(':author_id', $author_id, PDO::PARAM_INT);
         $add_book_query->bindValue(':category_id', $genre_id, PDO::PARAM_INT);
+        $add_book_query->bindValue(':ISBN', $ISBN, PDO::PARAM_STR);
         $add_book_query->execute();
         echo 'Dodano ksiazke';
     }else{
