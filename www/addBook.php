@@ -66,7 +66,7 @@
         $add_book_query->bindValue(':category_id', $genre_id, PDO::PARAM_INT);
         $add_book_query->bindValue(':ISBN', $ISBN, PDO::PARAM_STR);
         $add_book_query->execute();
-        echo 'Dodano ksiazke<br/> <a href="showBooks.php">Zobacz wszystkie książki</a>';
+        echo 'Dodano ksiazke<br/> <a href="../app/showBooks.php">Zobacz wszystkie książki</a>';
     }else{
         header('Location: bookForm.html');
         exit();

@@ -1,7 +1,4 @@
 
-CREATE DATABASE IF NOT EXISTS library;
-USE library;
-
 CREATE TABLE IF NOT EXISTS User (
                         login varchar(50) NOT NULL UNIQUE,
                         user_id INT NOT NULL AUTO_INCREMENT UNIQUE,
