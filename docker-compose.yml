@@ -1,11 +1,27 @@
-version: "3"
+version: '3'
 services:
-  www:
+  web:
     build: .
+    environment:
+      DB_HOST: mariadb
     ports:
-      - 80:80
-      - 443:443
+    - "80:80"
     volumes:
-      - "./www:/var/www/html"
-      - "./db:/var/lib/mysql"
+    - ./www:/var/www/html/
+    depends_on:
+      - mariadb
+    network_mode: "host"
+  mariadb:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: Library
+      MYSQL_USER: user-new
+      MYSQL_PASSWORD: password2
+    volumes:
+      - ./data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    network_mode: "host"
+
 
