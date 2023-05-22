@@ -27,7 +27,7 @@ class ListInventoryAction
 
                 $id = $book['title'];
                 if (isset($id) && isset($user)) {
-                    $output .= '<td><a href="#" id="' . $book['title'] . '" class="btn btn-outline-success me-1 btn-sm rounded-pill py-0 rentBookLink" data-bs-toggle="modal" data-bs-target="#rent-book-modal">Wypożycz</a>';
+                    $output .= '<td><a href="#" id="' . $book['title'] . '" class="btn btn-outline-success me-1 btn-sm rounded-pill py-0 rentBookLink" data-bs-toggle="modal" data-bs-target="#rent-book-modal"><i class="fa-solid fa-book-bookmark"></i> Wypożycz</a>';
                 }
                 $output .= '</td>
                   </tr>';
