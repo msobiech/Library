@@ -35,6 +35,17 @@
                         <label for="add-book-author">Autor</label>
                         <div class="invalid-feedback">Autor jest wymagany i nie dluższy niż 50 znaków!</div>
                     </div>
+                    <div class="form-floating mb-2">
+                        <input type="text" id="add-book-category" name="category" class="form-control form-control-lg" placeholder="Gatunek" maxlength="50" autofocus required>
+                        <label for="add-book-author">Gatunek</label>
+                        <div class="invalid-feedback">Gatunek jest wymagany i nie dluższy niż 50 znaków!</div>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input type="text" id="add-book-isbn" name="isbn" class="form-control form-control-lg"data-bs-toggle="tooltip"  title="Wprowadź ISBN"  placeholder="ISBN">
+                        <label for="search-isbn">ISBN</label>
+                        <div class="invalid-feedback">ISBN jest wymagany!</div>
+                    </div>
+
                     <div class="modal-footer justify-content-center">
                         <input type="submit" value="Dodaj ksiazke" class="btn btn-outline-primary text-uppercase mt-3 mb-0 btn-block btn-lg" id="add-book-btn">
                     </div>

@@ -24,4 +24,12 @@ if (isset($_GET['inventory'])) {
     echo $listInventoryAction->action($db_connection, $user);
 }
 
+if(isset($_POST['title']) && isset($_POST['author']) && isset($_POST['category']) && isset($_POST['isbn'])){
+    echo 'formularz wyslany';
+    $title = $util->testInput($_POST['title']);
+    $author = $util->testInput($_POST['author']);
+    $category = $util->testInput($_POST['category']);
+    $isbn = $util->testInput($_POST['isbn']);
+    echo $addInventoryAction->action($db_connection, $title, $author, $category, $isbn);
+}
 ?>
