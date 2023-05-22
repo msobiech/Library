@@ -1,3 +1,5 @@
+import {fetchAll} from "./inventory.js";
+
 const mainHeader = document.getElementById("main-header");
 
 const loginModal = new bootstrap.Modal(document.getElementById("login-modal"));

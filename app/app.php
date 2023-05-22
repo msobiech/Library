@@ -1,7 +1,9 @@
 <?php
 
 use Actions\Auth\LoginAction;
+use Actions\Book\ListInventoryAction;
 include('Actions/Auth/LoginAction.php');
+include('Actions/Book/ListInventoryAction.php');
 //global $db_connection;
 
 
@@ -17,3 +19,5 @@ try {
 
 //Init Actions
 $loginAction = new LoginAction();
+$listInventoryAction = new ListInventoryAction();
+

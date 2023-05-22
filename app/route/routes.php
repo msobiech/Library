@@ -17,4 +17,11 @@ if (isset($_POST['auth']) && isset($_POST['zaloguj'])) {
     echo $loginAction->action($db_connection, $login, $password);
 }
 
+//Inventory
+if (isset($_GET['inventory'])) {
+    $user = $util->testInput($_GET['login']);
+    $user = $util->empty2Null($user);
+    echo $listInventoryAction->action($db_connection, $user);
+}
+
 ?>
