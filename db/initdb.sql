@@ -69,4 +69,8 @@ ALTER TABLE Rent ADD CONSTRAINT Rent_fk0 FOREIGN KEY (book_id) REFERENCES Book(b
 
 ALTER TABLE Rent ADD CONSTRAINT Rent_fk1 FOREIGN KEY (user_id) REFERENCES User(user_id);
 
+
+--user to test initial data
+INSERT INTO Library.User (login, passwordhash, isActive, permission) VALUES ('a@gmail.com', '123', DEFAULT, DEFAULT);
+
 commit;
