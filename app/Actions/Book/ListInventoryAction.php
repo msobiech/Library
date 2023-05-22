@@ -12,7 +12,7 @@ class ListInventoryAction
     function action($db, $user): string
     {
         $output = '';
-        $query = $db->prepare('SELECT title, Author.name as author_name, Author.surname as author_surname, Category.name as category_name FROM Book JOIN Author ON Book.author_id = Author.author_id JOIN Category ON Book.category_id = Category.category_id');
+        $query = $db->prepare('SELECT title, Author.name as author_name, Author.surname as author_surname, Category.name as category_name, available FROM Book JOIN Author ON Book.author_id = Author.author_id JOIN Category ON Book.category_id = Category.category_id');
         $query->execute();
         $books = $query->fetchAll();
 
@@ -23,7 +23,7 @@ class ListInventoryAction
                     <td>' . $book['title'] . '</td>
                     <td>' . $book['author_name'] . ' ' . $book['author_surname'] . '</td>
                     <td>' . $book['category_name'] . '</td>
-                    <td>' . $book['category_name'] . '</td>';
+                    <td>' . ($book['available'] ? 'Tak' : 'Nie') . '</td>';
 
                 $id = $book['title'];
                 if (isset($id) && isset($user)) {
