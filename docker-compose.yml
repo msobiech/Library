@@ -6,8 +6,9 @@ services:
       DB_HOST: mariadb
     ports:
     - "80:80"
+    - "443:443"
     volumes:
-    - ./www:/var/www/html/
+    - ./app:/var/www/html/
     depends_on:
       - mariadb
     network_mode: "host"
