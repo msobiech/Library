@@ -2,10 +2,15 @@
 
 use Actions\Auth\LoginAction;
 use Actions\Book\ListInventoryAction;
-use Actions\Book\AddInventoryAction;
+use Actions\Book\AddBookAction;
+use Actions\Category\ListCategoryAction;
+
 include('Actions/Auth/LoginAction.php');
 include('Actions/Book/ListInventoryAction.php');
-include('Actions/Book/AddInventoryAction.php');
+include('Actions/Book/AddBookAction.php');
+
+include ('Actions/Category/ListCategoryAction.php');
+
 //global $db_connection;
 
 
@@ -22,4 +27,6 @@ try {
 //Init Actions
 $loginAction = new LoginAction();
 $listInventoryAction = new ListInventoryAction();
-$addInventoryAction = new AddInventoryAction();
+$addBookAction = new AddBookAction();
+
+$listCategoryAction = new ListCategoryAction();

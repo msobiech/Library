@@ -14,8 +14,6 @@ const searchModal = new bootstrap.Modal(document.getElementById("search-modal"))
 const searchForm = document.getElementById("search-form");
 const showAlert = document.getElementById("show-alert");
 
-const addForm = document.getElementById("add-book-form");
-const addModal = new bootstrap.Modal(document.getElementById("add-book-modal"));
 
 searchForm.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -59,29 +57,6 @@ searchForm.addEventListener("submit", async (e) => {
         searchForm.classList.remove("was-validated");
         searchModal.hide();
     }
-});
-
-addForm.addEventListener("submit", async (e) => {
-   e.preventDefault();
-   if(addForm.checkValidity() === false){
-       e.preventDefault();
-       e.stopPropagation();
-       addForm.classList.add("was-validated");
-       return false;
-   } else {
-       const formData = new FormData(addForm);
-       const data = await fetch("route/routes.php", {
-           method: "POST",
-           body: formData,
-       });
-       //formData.append("login", getCookie("login")); //nie wiem co to robi, ale jest bo bylo wyzej
-       //console.log(formData);
-       addForm.reset();
-       addForm.classList.remove("was-validated");
-       //console.log("dodano ksiazke");
-       showAlert.innerHTML = showMessage("success", "Dodano książkę");
-   }
-
 });
 
 function isEmpty(str) {

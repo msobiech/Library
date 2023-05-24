@@ -36,14 +36,16 @@
                         <div class="invalid-feedback">Autor jest wymagany i nie dluższy niż 50 znaków!</div>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="text" id="add-book-category" name="category" class="form-control form-control-lg" placeholder="Gatunek" maxlength="50" autofocus required>
+                        <!--<input type="text" id="add-book-category" name="category" class="form-control form-control-lg" placeholder="Gatunek" maxlength="50" autofocus required>-->
+                        <select id="categories-dict-select" class="form-select" name="category" aria-label="Gatunek" required>
+                        </select>
                         <label for="add-book-author">Gatunek</label>
                         <div class="invalid-feedback">Gatunek jest wymagany i nie dluższy niż 50 znaków!</div>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="text" id="add-book-isbn" name="isbn" class="form-control form-control-lg"data-bs-toggle="tooltip"  title="Wprowadź ISBN"  placeholder="ISBN">
+                        <input type="number" id="add-book-isbn" name="isbn" class="form-control form-control-lg"data-bs-toggle="tooltip"  title="Wprowadź ISBN"   placeholder="ISBN" min="1000000000" max="9999999999" required>
                         <label for="search-isbn">ISBN</label>
-                        <div class="invalid-feedback">ISBN jest wymagany!</div>
+                        <div class="invalid-feedback">ISBN jest wymagany o dlugosci 10 cyfr!</div>
                     </div>
 
                     <div class="modal-footer justify-content-center">
@@ -185,6 +187,7 @@
                         <th>Autor</th>
                         <th>Gatunek</th>
                         <th>Dostepna</th>
+                        <th>ISBN</th>
                         <th>Akcje</th>
                     </tr>
                     </thead>
@@ -199,6 +202,7 @@
 </script>
 <script type="module" src="js/main.js"></script>
 <script type="module" src="js/inventory.js"></script>
+<script type="module" src="js/book.js"></script>
 </body>
 
 </html>

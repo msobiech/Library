@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS Book (
                         title varchar(50) NOT NULL,
                         author_id INT NOT NULL,
                         category_id INT NOT NULL,
-                        ISBN INT NOT NULL,
+                        ISBN INT NOT NULL UNIQUE,
                         available BOOLEAN NOT NULL DEFAULT '1',
                         lowtitle varchar(50) NOT NULL DEFAULT lower(title),
                         PRIMARY KEY (book_id)
