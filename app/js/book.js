@@ -17,6 +17,19 @@ addModalC.addEventListener('shown.bs.modal', async function () {
 
 })
 
+//zbudowanie slownika do wyszukiwania dostepnych gatunkow
+
+const categoriesSearchBody = document.getElementById("search-categories-dict");
+const searchModal = document.getElementById("search-modal");
+
+searchModal.addEventListener('shown.bs.modal', async function(){
+    const data = await fetch("route/routes.php?category", {
+        method: "GET",
+    });
+    categoriesSearchBody.innerHTML = await data.text();
+    categoriesSearchBody.innerHTML = '<option value="-1">Brak kategorii</option>' + await categoriesSearchBody.innerHTML;
+})
+
 addForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     if(addForm.checkValidity() === false){

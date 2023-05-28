@@ -25,32 +25,48 @@ searchForm.addEventListener("submit", async (e) => {
     } else {
         document.getElementById("search-btn").value = "Czekaj...";
         const book = document.getElementById("search-book").value;
-        const author = document.getElementById("search-author").value;
+        const author_name = document.getElementById("search-author-name").value;
+        const author_surname = document.getElementById("search-author-surname").value;
+        const category = document.getElementById("search-categories-dict").value;
         const isbn = document.getElementById("search-isbn").value;
-        if (isEmpty(book) && isEmpty(author) && isEmpty(isbn)) {
+
+        if (isEmpty(book) && isEmpty(author_name) && isEmpty(category) && isEmpty(isbn) && isEmpty(author_surname)) {
             await fetchAll();
-            showAlert.innerHTML = "";
+            showAlert.innerHTML = showMessage("danger", "Proszę wypełnić conajmniej jedno pole!");
+            console.log("Pusty formularz!");
         } else {
-            const formData = new FormData(searchForm);
-            formData.append("inwentarz", "2");
-            formData.append("login", getCookie("login"));
-            const data = await fetch("route/routes.php", {
-                method: "POST",
-                body: formData,
-            });
-            tbody.innerHTML = await data.text();
             let kryteria = "Kryteria wyszukiwania [ ";
+            let params = "";
             if (!isEmpty(book)) {
                 kryteria = kryteria +  "Tytuł: " + book +" ";
+                params = params + '&title=' + book;
             }
-            if (!isEmpty(author)) {
-                kryteria = kryteria +  "Autor: " + author + " ";
+            if (!isEmpty(author_name)) {
+                kryteria = kryteria +  "Imię autora: " + author_name + " ";
+                params = params + '&author_name=' + author_name;
+            }
+            if(!isEmpty(author_surname)){
+                kryteria = kryteria + "Nazwisko autora: " + author_surname + " ";
+                params = params + '&author_surname=' + author_surname;
             }
             if (!isEmpty(isbn)) {
                 kryteria = kryteria +  "ISBN: " + isbn;
+                params = params + '&isbn=' + isbn;
+            }
+            if(!isEmpty(category) && category != "-1"){
+                kryteria = kryteria + "Gatunek: " + category;
+                params = params + '&category_id=' + category;
             }
             kryteria = kryteria +"]";
-            showAlert.innerHTML = showMessage("success", kryteria, "fetchInwentarz()");
+            console.log(params);
+            console.log(category);
+            console.log(typeof(category));
+            const searched_result = await fetch(`route/routes.php?inventory&login=${login}`+params, {
+                method: "GET",
+            });
+            tbody.innerHTML = await searched_result.text();
+            console.log("pytanie wykoanane")
+            showAlert.innerHTML = showMessage("success", kryteria);
         }
         document.getElementById("search-btn").value = "Szukaj";
         searchForm.reset();

@@ -39,7 +39,7 @@
                         <!--<input type="text" id="add-book-category" name="category" class="form-control form-control-lg" placeholder="Gatunek" maxlength="50" autofocus required>-->
                         <select id="categories-dict-select" class="form-select" name="category" aria-label="Gatunek" required>
                         </select>
-                        <label for="add-book-author">Gatunek</label>
+                        <label for="categories-dict-select">Gatunek</label>
                         <div class="invalid-feedback">Gatunek jest wymagany i nie dluższy niż 50 znaków!</div>
                     </div>
                     <div class="form-floating mb-2">
@@ -102,12 +102,24 @@
                         <label for="search-book">Ksiazka</label>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="text" id="search-author" name="search-author" class="form-control form-control-lg" data-bs-toggle="tooltip" title="Wprowadź fragment nazwiska albo imienia autora." placeholder="Autor">
-                        <label for="search-author">Autor</label>
+                        <input type="text" id="search-author-name" name="search-author-name" class="form-control form-control-lg" data-bs-toggle="tooltip" title="Wprowadź fragment imienia autora." placeholder="Autor">
+                        <label for="search-author-name">Autor</label>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="text" id="search-isbn" name="search-gallery" class="form-control form-control-lg"data-bs-toggle="tooltip"  title="Wprowadź ISBN"  placeholder="ISBN">
+                        <input type="text" id="search-author-surname" name="search-author-surname" class="form-control form-control-lg" data-bs-toggle="tooltip" title="Wprowadź fragment nazwiska autora." placeholder="Nazwisko Autora">
+                        <label for="search-author-surname">Nazwisko Autora</label>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <!--<input type="text" id="add-book-category" name="category" class="form-control form-control-lg" placeholder="Gatunek" maxlength="50" autofocus required>-->
+                        <select id="search-categories-dict" class="form-select" name="search-categories-dict" aria-label="Gatunek">
+                        </select>
+                        <label for="search-categories-dict">Gatunek</label>
+                        <div class="invalid-feedback">Gatunek jest wymagany i nie dluższy niż 50 znaków!</div>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input type="number" id="search-isbn" name="search-isbn" class="form-control form-control-lg"data-bs-toggle="tooltip"  title="Wprowadź ISBN"   placeholder="ISBN" min="1000000000" max="9999999999">
                         <label for="search-isbn">ISBN</label>
+                        <div class="invalid-feedback">ISBN jest wymagany o dlugosci 10 cyfr!</div>
                     </div>
                     <div class="modal-footer mt-3 justify-content-center">
                         <input type="submit" value="Szukaj" class="btn btn-outline-warning text-uppercase btn-block btn-lg mt-3 mb-0" id="search-btn">

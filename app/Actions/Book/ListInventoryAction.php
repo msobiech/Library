@@ -1,6 +1,7 @@
 <?php
 
 namespace Actions\Book;
+use PDO;
 
 class ListInventoryAction
 {
@@ -9,10 +10,57 @@ class ListInventoryAction
     {
     }
 
-    function action($db, $user): string
+    function action($db, $user, $title, $author_name, $author_surname, $isbn, $category_id): string
     {
         $output = '';
-        $query = $db->prepare('SELECT title, isbn, Author.name as author_name, Author.surname as author_surname, Category.name as category_name, available FROM Book JOIN Author ON Book.author_id = Author.author_id JOIN Category ON Book.category_id = Category.category_id');
+        $main_query = 'SELECT title, isbn, Author.name as author_name, Author.surname as author_surname, Category.name as category_name, available, lowtitle, Author.lowname, Author.lowsurname, Category.category_id FROM Book JOIN Author ON Book.author_id = Author.author_id JOIN Category ON Book.category_id = Category.category_id';
+        $query_args = array();
+
+        if(!empty($title)){
+            $title = strtolower($title);
+            $query_args[] = ' lowtitle LIKE :title';
+        }
+        if(!empty($author_name)){
+            $author_name = strtolower($author_name);
+            $query_args[] = ' Author.lowname LIKE :author_name';
+        }
+        if(!empty($author_surname)){
+            $author_surname = strtolower($author_surname);
+            $query_args[] = ' Author.lowsurname LIKE :author_surname';
+        }
+        if(!empty($category_id) && $category_id != -1){
+            $query_args[] = ' Category.category_id = :category';
+        }
+        if(!empty($isbn)){
+            $query_args[] = ' isbn = :isbn';
+        }
+        $search_query = "";
+        if(count($query_args)) {
+            $search_query = ' WHERE ' . $query_args[0];
+        }
+        for($i = 1; $i < count($query_args); $i++) {
+            $search_query = $search_query . ' and ' . $query_args[$i];
+        }
+        $search_query = $main_query . $search_query;
+        echo $search_query;
+        $query = $db->prepare($search_query);
+
+        if(!empty($title)){
+            $query->bindValue(':title', '%'.$title.'%', PDO::PARAM_STR);
+
+        }
+        if(!empty($author_name)){
+            $query->bindValue(':author_name', '%'.$author_name.'%', PDO::PARAM_STR);
+        }
+        if(!empty($author_surname)){
+            $query->bindValue(':author_surname', '%'.$author_surname.'%', PDO::PARAM_STR);
+        }
+        if(!empty($category_id) && $category_id != -1){
+            $query->bindValue(':category', $category_id, PDO::PARAM_INT);
+        }
+        if(!empty($isbn)){
+            $query -> bindValue(':isbn', $isbn, PDO::PARAM_INT);
+        }
         $query->execute();
         $books = $query->fetchAll();
 
