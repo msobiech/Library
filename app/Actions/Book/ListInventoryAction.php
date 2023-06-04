@@ -83,10 +83,16 @@ class ListInventoryAction
                         if(isset($book['userrent']) && $user == $book['userrent']){
                             $output.= '<td><a href="#" id="' . $book['book_id'] . '" class="btn btn-primary me-1 btn-sm rounded-pill py-0 returnBookLink" data-bs-toggle="modal" data-bs-target="#return-book-modal"><i class="fa-solid fa-book-bookmark"></i> Zwroc</a>';
                         }
+                        else{
+                            $output.= '<td>Brak';
+                        }
                     }
                     else{
                         $output.= '<td><a href="#" id="' . $book['book_id'] . '" class="btn btn-outline-success me-1 btn-sm rounded-pill py-0 rentBookLink" data-bs-toggle="modal" data-bs-target="#rent-book-modal"><i class="fa-solid fa-book-bookmark"></i> Wypożycz</a>';
                     }
+                }
+                else{
+                    $output.= '<td>Brak';
                 }
                 $output .= '</td>
                   </tr>';
