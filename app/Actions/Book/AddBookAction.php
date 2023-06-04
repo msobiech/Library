@@ -3,6 +3,8 @@
 namespace Actions\Book;
 use PDO; //korzystam z PDO w bindValue (bez tego nie dziala od linii 21)
 
+require_once (__DIR__.'/../Auth/authutil.php');
+
 class AddBookAction
 {
 
@@ -10,9 +12,16 @@ class AddBookAction
     {
     }
 
-    function action($db, $title, $author, $category_id, $isbn): string
+    function action($db, $ssid, $ip, $title, $author, $category_id, $isbn): string
     {
-        $output = 'OK'; //nie wiem czy output tutaj jest potrzebny
+        $ssid = htmlspecialchars(strip_tags($ssid));
+        $title = htmlspecialchars(strip_tags($title));
+        $category_id = htmlspecialchars(strip_tags($category_id));
+        $login = htmlspecialchars(strip_tags($author));
+        $isbn = htmlspecialchars(strip_tags($isbn));
+        if (confirmPerms($db, $ssid, $ip) >= 2) {
+            return 'perms';
+        }
         //$query = $db->prepare('SELECT title, Author.name as author_name, Author.surname as author_surname, Category.name as category_name, available FROM Book JOIN Author ON Book.author_id = Author.author_id JOIN Category ON Boo');
         //$query->execute();
         //ponizszy kod jest skopiowany z addBook.php
@@ -52,7 +61,6 @@ class AddBookAction
             $db->rollback();
             throw new Exception($e->getMessage(), 1, $e);
         }
-
-        return $output;
+        return 'true';
     }
 }

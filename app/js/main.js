@@ -34,8 +34,8 @@ loginForm.addEventListener("submit", async (e) => {
             body: formData,
         });
         const loginStatus = await data.text();
-        if (loginStatus === 'true') {
-            manageCookie.setCookie("login", login, 1);
+        if (loginStatus.length === 256) {
+            manageCookie.setCookie("login", loginStatus, 7);
             loginForm.reset();
             loginForm.classList.remove("was-validated");
             //enable menu
@@ -47,7 +47,7 @@ loginForm.addEventListener("submit", async (e) => {
             loginModal.hide();
             reload();
         } else {
-            alert("Nieprawidlowe dane do logowania lub uzytkownik nie istnieje");
+            alert(loginStatus);//"Nieprawidlowe dane do logowania lub uzytkownik nie istnieje");
             e.preventDefault();
             e.stopPropagation();
             loginForm.reset();
@@ -144,5 +144,16 @@ manageCookie = {
     }
 };
 
-manageCookie.removeCookie("login");
 fetchAll();
+
+
+// if the user is already logged in and loads into/refreshes the page
+if (!(manageCookie.getCookie("login") === null)) {
+    //enable menu
+    document.getElementById("new-book-btn").classList.remove("d-none");
+    document.getElementById("new-author-btn").classList.remove("d-none");
+    //hide login and show logout
+    document.getElementById("login-btn").classList.add("d-none");
+    document.getElementById("logout-btn").classList.remove("d-none");
+    loginModal.hide();
+}

@@ -12,6 +12,13 @@ class ListInventoryAction
 
     function action($db, $user, $title, $author_name, $author_surname, $isbn, $category_id): string
     {
+        $user = htmlspecialchars(strip_tags($user));
+        $author_name = htmlspecialchars(strip_tags($author_name));
+        $author_surname = htmlspecialchars(strip_tags($author_surname));
+        $title = htmlspecialchars(strip_tags($title));
+        $category_id = htmlspecialchars(strip_tags($category_id));
+        $isbn = htmlspecialchars(strip_tags($isbn));
+
         $output = '';
         $main_query = 'SELECT title, isbn, Author.name as author_name, Author.surname as author_surname, Category.name as category_name, available, lowtitle, Author.lowname, Author.lowsurname, Category.category_id FROM Book JOIN Author ON Book.author_id = Author.author_id JOIN Category ON Book.category_id = Category.category_id';
         $query_args = array();

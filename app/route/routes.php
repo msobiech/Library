@@ -10,7 +10,7 @@ if (isset($_POST['auth']) && isset($_POST['zaloguj'])) {
     $login = $_POST['login'];
     $password = $_POST['password'];
     //echo 'true';
-    echo $loginAction->action($db_connection, $login, $password);
+    echo $loginAction->action($db_connection, $login, $password, $_SERVER['REMOTE_ADDR']);
 }
 
 //Inventory
@@ -47,8 +47,13 @@ if(isset($_POST['book']) && isset($_POST['title'])){
         $author = $util->testInput($_POST['author']);
         $category_id = $util->testInput($_POST['category']);
         $isbn = $util->testInput($_POST['isbn']);
-        $addBookAction->action($db_connection, $title, $author, $category_id, $isbn);
-        echo $util->showMessage('success', 'Ksiazka zostala dodana!');
+        $resadd = $addBookAction->action($db_connection, $_COOKIE['login'], $_SERVER['REMOTE_ADDR'], $title, $author, $category_id, $isbn);
+        if ($resadd == 'true') {
+            echo $util->showMessage('success', 'Ksiazka zostala dodana!');
+        }
+        if ($resadd == 'perms') {
+            echo $util->showMessage('danger', 'No permissions to add book! Try logging in again.');
+        }
     } catch (Exception $exception) {
         echo $util->showMessage('danger', $exception->getMessage());
     }

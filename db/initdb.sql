@@ -8,6 +8,18 @@ CREATE TABLE IF NOT EXISTS User (
                         PRIMARY KEY (user_id)
 );
 
+CREATE TABLE IF NOT EXISTS Sessions (
+                        sessid varchar(256) NOT NULL UNIQUE,
+                        ip varchar(45),
+                        user_id INT NOT NULL,
+                       	permission INT NOT NULL DEFAULT 1,
+                       	expire BIGINT NOT NULL,
+                        PRIMARY KEY (sessid)
+);
+
+CREATE INDEX IF NOT EXISTS Sessions
+	ON Sessions (sessid);
+
 CREATE TABLE IF NOT EXISTS Book (
                         book_id INT NOT NULL AUTO_INCREMENT,
                         title varchar(50) NOT NULL,
