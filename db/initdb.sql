@@ -1,4 +1,4 @@
-
+USE Library;
 CREATE TABLE IF NOT EXISTS User (
                         login varchar(50) NOT NULL UNIQUE,
                         user_id INT NOT NULL AUTO_INCREMENT UNIQUE,
@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS Book (
                         author_id INT NOT NULL,
                         category_id INT NOT NULL,
                         ISBN INT NOT NULL UNIQUE,
-                        available BOOLEAN NOT NULL DEFAULT '1',
+                        available INT NOT NULL DEFAULT '0',
                         lowtitle varchar(50) NOT NULL DEFAULT lower(title),
                         PRIMARY KEY (book_id)
 );
@@ -69,6 +69,26 @@ ALTER TABLE Rent ADD CONSTRAINT Rent_fk0 FOREIGN KEY (book_id) REFERENCES Book(b
 
 ALTER TABLE Rent ADD CONSTRAINT Rent_fk1 FOREIGN KEY (user_id) REFERENCES User(user_id);
 
+
+CREATE TRIGGER rent_after_update
+    AFTER UPDATE
+    ON Rent FOR EACH ROW
+
+BEGIN
+    UPDATE Book
+    SET available = 0
+    where book_id = OLD.book_id;
+END;
+
+CREATE TRIGGER rent_after_insert
+    AFTER INSERT
+    ON Rent FOR EACH ROW
+
+BEGIN
+    UPDATE Book
+    SET available = NEW.rent_id
+    where book_id = NEW.book_id;
+END;
 
 INSERT INTO Library.User (login, passwordhash, isActive, permission) VALUES ('a@gmail.com', '123', DEFAULT, DEFAULT);
 
