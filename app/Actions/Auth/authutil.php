@@ -26,7 +26,4 @@ function confirmPerms($db, $ssid, $ip): int
         return 0;
     }
 }
-
-
-
 ?>

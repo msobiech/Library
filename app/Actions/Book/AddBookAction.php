@@ -17,7 +17,8 @@ class AddBookAction
         $ssid = htmlspecialchars(strip_tags($ssid));
         $title = htmlspecialchars(strip_tags($title));
         $category_id = htmlspecialchars(strip_tags($category_id));
-        $login = htmlspecialchars(strip_tags($author));
+        $author_name = htmlspecialchars(strip_tags($author_name));
+        $author_surname = htmlspecialchars(strip_tags($author_surname));
         $isbn = htmlspecialchars(strip_tags($isbn));
         if (confirmPerms($db, $ssid, $ip) >= 2) {
             return 'perms';

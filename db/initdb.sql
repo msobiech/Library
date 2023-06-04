@@ -2,7 +2,7 @@ USE Library;
 CREATE TABLE IF NOT EXISTS User (
                         login varchar(50) NOT NULL UNIQUE,
                         user_id INT NOT NULL AUTO_INCREMENT UNIQUE,
-                        passwordhash varchar(50) NOT NULL,
+                        passwordhash varchar(100) NOT NULL,
                         isActive BOOLEAN NOT NULL DEFAULT true,
                        	permission INT NOT NULL DEFAULT 1,
                         PRIMARY KEY (user_id)
@@ -102,7 +102,8 @@ BEGIN
     where book_id = NEW.book_id;
 END;
 
-INSERT INTO Library.User (login, passwordhash, isActive, permission) VALUES ('a@gmail.com', '123', DEFAULT, DEFAULT);
+INSERT INTO Library.User (login, passwordhash, isActive, permission) VALUES ('a@gmail.com', '$2y$10$g9D/hotyx9RZtxF/JviX5eAgtff6EY1lqy/kqJ/RQUO5Ge6ZQyzgW', DEFAULT, DEFAULT);
+-- haslo to 123
 
 
 ALTER TABLE Library.Category AUTO_INCREMENT = 1;

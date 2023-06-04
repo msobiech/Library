@@ -149,7 +149,6 @@ fetchAll();
 if (!(manageCookie.getCookie("login") === null)) {
     //enable menu
     document.getElementById("new-book-btn").classList.remove("d-none");
-    document.getElementById("new-author-btn").classList.remove("d-none");
     //hide login and show logout
     document.getElementById("login-btn").classList.add("d-none");
     document.getElementById("logout-btn").classList.remove("d-none");

@@ -12,7 +12,9 @@ class ListInventoryAction
 
     function action($db, $user, $title, $author_name, $author_surname, $isbn, $category_id): string
     {
-        $user = htmlspecialchars(strip_tags($user));
+        if($user) {
+            $user = htmlspecialchars(strip_tags($user));
+        }
         $author_name = htmlspecialchars(strip_tags($author_name));
         $author_surname = htmlspecialchars(strip_tags($author_surname));
         $title = htmlspecialchars(strip_tags($title));
