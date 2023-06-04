@@ -12,7 +12,7 @@ class AddBookAction
     {
     }
 
-    function action($db, $ssid, $ip, $title, $author, $category_id, $isbn): string
+    function action($db, $ssid, $ip, $title, $author_name, $author_surname, $category_id, $isbn): string
     {
         $ssid = htmlspecialchars(strip_tags($ssid));
         $title = htmlspecialchars(strip_tags($title));
@@ -27,8 +27,9 @@ class AddBookAction
         //ponizszy kod jest skopiowany z addBook.php
 
         //szukanie id autora
-        $author_query = $db->prepare('SELECT author_id FROM Author WHERE name = :name LIMIT 1');
-        $author_query->bindValue(':name', $author, PDO::PARAM_STR);
+        $author_query = $db->prepare('SELECT author_id FROM Author WHERE surname = :surname AND name = :name LIMIT 1');
+        $author_query->bindValue(':name', $author_name, PDO::PARAM_STR);
+        $author_query->bindValue(':surname', $author_surname, PDO::PARAM_STR);
         try{
             $db->begintransaction();
             $author_query->execute();
@@ -38,11 +39,9 @@ class AddBookAction
                 $author_id = $query_res[0]['author_id'];
                 //$output = $output.'<p>author ID: ' . $author_id .'</p>';
             }else{
-                //nie ma autora w bazie -> dodajemy go i szukamy id
-                //TODO: OBECNIE KOD WPISUJE IMIE I NAZWISKO AUTORA DWA RAZY
                 $add_query = $db->prepare('INSERT INTO Author (name, surname) VALUES (:author_name, :author_surname)');
-                $add_query->bindValue(':author_name', $author, PDO::PARAM_STR);
-                $add_query->bindValue(':author_surname', $author, PDO::PARAM_STR);
+                $add_query->bindValue(':author_name', $author_name, PDO::PARAM_STR);
+                $add_query->bindValue(':author_surname', $author_surname, PDO::PARAM_STR);
                 $add_query->execute();
                 //przypisanie id autora
                 $author_query->execute();

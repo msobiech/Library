@@ -40,7 +40,6 @@ loginForm.addEventListener("submit", async (e) => {
             loginForm.classList.remove("was-validated");
             //enable menu
             document.getElementById("new-book-btn").classList.remove("d-none");
-            document.getElementById("new-author-btn").classList.remove("d-none");
             //hide login and show logout
             document.getElementById("login-btn").classList.add("d-none");
             document.getElementById("logout-btn").classList.remove("d-none");
@@ -65,7 +64,6 @@ logoutBtn.addEventListener("click", async(e) => {
     //alert(manageCookie.getCookie("login"));
     //enable menu
     document.getElementById("new-book-btn").classList.add("d-none");
-    document.getElementById("new-author-btn").classList.add("d-none");
     //hide login and show logout
     document.getElementById("login-btn").classList.remove("d-none");
     document.getElementById("logout-btn").classList.add("d-none");
@@ -157,3 +155,4 @@ if (!(manageCookie.getCookie("login") === null)) {
     document.getElementById("logout-btn").classList.remove("d-none");
     loginModal.hide();
 }
+export {manageCookie};

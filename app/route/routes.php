@@ -40,20 +40,58 @@ if (isset($_GET['inventory'])) {
     echo $listInventoryAction->action($db_connection, $user, $title, $author_name, $author_surname, $isbn, $category_id);
 }
 
+if (isset($_GET['book']) && isset($_GET['id'])) {
+    $user = $util->testInput($_GET['login']);
+    //$user = $util->empty2Null($user);
+    $id = $_GET['id'];
+    //$user = $util->empty2Null($user);
+    echo $BookDetailsAction->action($db_connection, $user, $id);
+    //echo $listInventoryAction->action($db_connection, $user, $title, $author_name, $author_surname, $isbn, $category_id);
+}
+
+
 //Book
-if(isset($_POST['book']) && isset($_POST['title'])){
+if(isset($_POST['book']) && $_POST['book'] == 'add' && isset($_POST['login'])){
     try {
         $title = $util->testInput($_POST['title']);
-        $author = $util->testInput($_POST['author']);
+        $author_name = $util->testInput($_POST['author-name']);
+        $author_surname = $util->testInput($_POST['author-surname']);
         $category_id = $util->testInput($_POST['category']);
         $isbn = $util->testInput($_POST['isbn']);
-        $resadd = $addBookAction->action($db_connection, $_COOKIE['login'], $_SERVER['REMOTE_ADDR'], $title, $author, $category_id, $isbn);
+        $resadd = $addBookAction->action($db_connection, $_COOKIE['login'], $_SERVER['REMOTE_ADDR'], $title, $author_name, $author_surname, $category_id, $isbn);
         if ($resadd == 'true') {
             echo $util->showMessage('success', 'Ksiazka zostala dodana!');
         }
         if ($resadd == 'perms') {
             echo $util->showMessage('danger', 'No permissions to add book! Try logging in again.');
         }
+    } catch (Exception $exception) {
+        echo $util->showMessage('danger', $exception->getMessage());
+    }
+}
+if(isset($_POST['book']) && $_POST['book'] == 'rent' && isset($_POST['login']) ){
+    try {
+        $book_id = $util->testInput($_POST['book-id']);
+        $start = $util->testInput($_POST['min-date']);
+        $end = $util->testInput($_POST['max-date']);
+        $login = $util->testInput($_POST['login']);
+        $RentBookAction->action($db_connection, $book_id, $start, $end, $login);
+
+        echo $util->showMessage('success', 'Ksiazka zostala wypozyczona!');
+    } catch (Exception $exception) {
+        echo $util->showMessage('danger', $exception->getMessage());
+    }
+}
+
+if(isset($_POST['book']) && $_POST['book'] == 'return' && isset($_POST['login']) ){
+    try {
+        $rent_id = $util->testInput($_POST['rent-id']);
+        $today = $util->testInput($_POST['return_date']);
+        $login = $util->testInput($_POST['login']);
+        //$book_id = $util->testInput($_POST['book-id']);
+        $ReturnBookAction->action($db_connection, $rent_id, $today);
+
+        echo $util->showMessage('success', 'Ksiazka zostala zwrocona!');
     } catch (Exception $exception) {
         echo $util->showMessage('danger', $exception->getMessage());
     }

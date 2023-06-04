@@ -3,12 +3,17 @@
 use Actions\Auth\LoginAction;
 use Actions\Book\ListInventoryAction;
 use Actions\Book\AddBookAction;
+use Actions\Book\BookDetailsAction;
+use Actions\Book\RentBookAction;
+use Actions\Book\ReturnBookAction;
 use Actions\Category\ListCategoryAction;
 
 include('Actions/Auth/LoginAction.php');
 include('Actions/Book/ListInventoryAction.php');
 include('Actions/Book/AddBookAction.php');
-
+include('Actions/Book/BookDetailsAction.php');
+include('Actions/Book/RentBookAction.php');
+include('Actions/Book/ReturnBookAction.php');
 include ('Actions/Category/ListCategoryAction.php');
 
 //global $db_connection;
@@ -28,5 +33,7 @@ try {
 $loginAction = new LoginAction();
 $listInventoryAction = new ListInventoryAction();
 $addBookAction = new AddBookAction();
-
+$BookDetailsAction = new BookDetailsAction();
 $listCategoryAction = new ListCategoryAction();
+$RentBookAction = new RentBookAction();
+$ReturnBookAction = new ReturnBookAction();

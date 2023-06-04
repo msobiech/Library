@@ -31,8 +31,13 @@
                         <div class="invalid-feedback">Tytuł jest wymagany i nie dluższy niż 50 znaków!</div>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="text" id="add-book-author" name="author" class="form-control form-control-lg" placeholder="Autor" maxlength="50" autofocus required>
-                        <label for="add-book-author">Autor</label>
+                        <input type="text" id="add-book-author-name" name="author-name" class="form-control form-control-lg" placeholder="Autor" maxlength="50" autofocus required>
+                        <label for="add-book-author-name">Imie Autora</label>
+                        <div class="invalid-feedback">Autor jest wymagany i nie dluższy niż 50 znaków!</div>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input type="text" id="add-book-author-surname" name="author-surname" class="form-control form-control-lg" placeholder="Autor" maxlength="50" autofocus required>
+                        <label for="add-book-author-surname">Nazwisko Autora</label>
                         <div class="invalid-feedback">Autor jest wymagany i nie dluższy niż 50 znaków!</div>
                     </div>
                     <div class="form-floating mb-2">
@@ -58,35 +63,6 @@
 </div>
 <!-- Add New Book Modal End -->
 
-<!-- Add New Author Modal Start -->
-<div class="modal fade" tabindex="-1" id="add-author-modal">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><i class="fas fa-edit"></i> Dodaj Autora</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="add-author-form" class="p-2" novalidate>
-                    <div class="form-floating mb-2">
-                        <input type="text" id="add-author-name" name="author-name" class="form-control form-control-lg" placeholder="Imię" required>
-                        <label for="add-author-name">Imię</label>
-                        <div class="invalid-feedback">Imię jest wymagane!</div>
-                    </div>
-                    <div class="form-floating mb-2">
-                        <input type="text" id="add-author-surname" name="surname" class="form-control form-control-lg" placeholder="Nazwisko" required>
-                        <label for="add-author-surname">Nazwisko</label>
-                        <div class="invalid-feedback">Nazwisko jest wymagane!</div>
-                    </div>
-                    <div class="modal-footer justify-content-center">
-                        <input type="submit" value="Dodaj autora" class="btn btn-outline-primary  mt-3 mb-0 text-uppercase btn-block btn-lg" id="add-author-btn">
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Add New Author Modal End -->
 
 <div class="modal fade" tabindex="-1" id="search-modal">
     <div class="modal-dialog modal-dialog-centered">
@@ -102,8 +78,8 @@
                         <label for="search-book">Ksiazka</label>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="text" id="search-author-name" name="search-author-name" class="form-control form-control-lg" data-bs-toggle="tooltip" title="Wprowadź fragment imienia autora." placeholder="Autor">
-                        <label for="search-author-name">Autor</label>
+                        <input type="text" id="search-author-name" name="search-author-name" class="form-control form-control-lg" data-bs-toggle="tooltip" title="Wprowadź fragment imienia autora." placeholder="Imie Autora">
+                        <label for="search-author-name">Imie Autora</label>
                     </div>
                     <div class="form-floating mb-2">
                         <input type="text" id="search-author-surname" name="search-author-surname" class="form-control form-control-lg" data-bs-toggle="tooltip" title="Wprowadź fragment nazwiska autora." placeholder="Nazwisko Autora">
@@ -117,9 +93,9 @@
                         <div class="invalid-feedback">Gatunek jest wymagany i nie dluższy niż 50 znaków!</div>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="number" id="search-isbn" name="search-isbn" class="form-control form-control-lg"data-bs-toggle="tooltip"  title="Wprowadź ISBN"   placeholder="ISBN" min="1000000000" max="9999999999">
+                        <input type="number" id="search-isbn" name="search-isbn" class="form-control form-control-lg"data-bs-toggle="tooltip"  title="Wprowadź ISBN"   placeholder="ISBN">
                         <label for="search-isbn">ISBN</label>
-                        <div class="invalid-feedback">ISBN jest wymagany o dlugosci 10 cyfr!</div>
+                        <div class="invalid-feedback">ISBN jest liczba!</div>
                     </div>
                     <div class="modal-footer mt-3 justify-content-center">
                         <input type="submit" value="Szukaj" class="btn btn-outline-warning text-uppercase btn-block btn-lg mt-3 mb-0" id="search-btn">
@@ -131,6 +107,87 @@
 </div>
 <!-- Search Modal End -->
 
+<!-- Rent Book Modal -->
+<div class="modal fade" id="rent-book-modal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="rent-title"><i class="fas fa-people-carry"></i> Wypożycz Ksiazke</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="rent-book-form" class="p-2" novalidate>
+                <input type="hidden" name="book_id" id="rent-book-id">
+                <div class="mb-2 form-floating">
+                    <input type="text" id="rent-book-title" name="title" class="form-control" readonly="true">
+                    <label for="rent-book-title">Tytuł</label>
+                </div>
+                <div class="mb-2 form-floating">
+                    <input type="text" id="rent-book-author" name="author" class="form-control" readonly="true">
+                    <label for="rent-book-author">Autor</label>
+                </div>
+                    <div class="d-flex flex-row align-self-baseline mb-2">
+                        <div class="form-floating w-50">
+                            <input type="date" id="rent-book-min-date"  name="min-date" class="form-control" readonly="true">
+                            <label for="rent-book-min-date">Poczatek wypozyczenia</label>
+                        </div>
+                        <div class="mb-2 ms-2 w-50 form-floating">
+                            <input type="date" id="rent-book-max-date"  name="max-date" class="form-control">
+                            <label for="rent-book-max-date">Koniec wypozyczenia</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer mt-3 justify-content-center">
+                        <input type="submit" value="Wypozycz" class="btn btn-outline-success btn-lg text-uppercase" id="rent-btn">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Rent Book Modal End -->
+
+<!-- Return Book Modal -->
+<div class="modal fade" id="return-book-modal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="return-title"><i class="fas fa-people-carry"></i> Wypożycz Ksiazke</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="return-book-form" class="p-2" novalidate>
+                    <input type="hidden" name="rent-id" id="return-rent-id">
+                    <div class="mb-2 form-floating">
+                        <input type="text" id="return-book-title" name="title" class="form-control" readonly="true">
+                        <label for="rent-book-title">Tytuł</label>
+                    </div>
+                    <div class="mb-2 form-floating">
+                        <input type="text" id="return-book-author" name="author" class="form-control" readonly="true">
+                        <label for="rent-book-author">Autor</label>
+                    </div>
+                    <div class="d-flex flex-row align-self-baseline mb-2">
+                        <div class="form-floating w-50">
+                            <input type="date" id="return-book-min-date"  name="min-date" class="form-control" readonly="true">
+                            <label for="rent-book-min-date">Poczatek wypozyczenia</label>
+                        </div>
+                        <div class="mb-2 ms-2 w-50 form-floating">
+                            <input type="date" id="return-book-max-date"  name="max-date" class="form-control" readonly>
+                            <label for="rent-book-max-date">Koniec wypozyczenia</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer mt-3 justify-content-center">
+                        <input type="submit" value="Zwroc" class="btn btn-outline-primary btn-lg text-uppercase" id="return-btn">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Rent Book Modal End -->
+
+<!-- Login Modal -->
 <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="login">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -157,7 +214,7 @@
     </div>
 </div>
 
-
+<!-- Login Modal End -->
 <div class="container">
     <div class="row mt-4">
         <div class="col-lg-12 d-flex justify-content-between align-items-center">
@@ -172,13 +229,10 @@
                     <button id="new-book-btn" class="btn btn-outline-primary btn-lg ms-1 me-1 d-none" type="button" data-bs-toggle="modal" data-bs-target="#add-book-modal">Nowa Ksiazka</button>
                 </div>
                 <div>
-                    <button id="new-author-btn" class="btn btn-outline-primary btn-lg me-1 d-none" type="button" data-bs-toggle="modal" data-bs-target="#add-author-modal">Nowy Autor</button>
-                </div>
-                <div>
                     <button id="login-btn" class="btn btn-outline btn-lg me-0 pe-0" type="button" data-bs-toggle="modal" data-bs-target="#login-modal"><i class="fas fa-sign-in-alt"></i> Zaloguj</button>
                 </div>
                 <div>
-                    <button id="logout-btn" class="btn btn-outline btn-lg me-0 pe-0 d-none" type="button"><i class="fas fa-sign-out-alt"></i> Wyloguj</button>
+                    <button id="logout-btn" class="btn btn-outline-secondary btn-lg me-0 pe-0 d-none" type="button"><i class="fas fa-sign-out-alt"></i> Wyloguj</button>
                 </div>
             </div>
         </div>
@@ -215,6 +269,8 @@
 <script type="module" src="js/main.js"></script>
 <script type="module" src="js/inventory.js"></script>
 <script type="module" src="js/book.js"></script>
+<script type="module" src="js/rent.js"></script>
+<script type="module" src="js/return.js"></script>
 </body>
 
 </html>

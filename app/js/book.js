@@ -1,4 +1,6 @@
 import {fetchAll} from "./inventory.js";
+import {manageCookie} from "./main.js";
+
 const showAlert = document.getElementById("show-alert");
 
 const addForm = document.getElementById("add-book-form");
@@ -38,8 +40,12 @@ addForm.addEventListener("submit", async (e) => {
         addForm.classList.add("was-validated");
         return false;
     } else {
+        let user = manageCookie.getCookie("login");
+
         const formData = new FormData(addForm);
-        formData.append("book", 1);
+        formData.append("book", "add");
+        formData.append("login", user);
+
         const data = await fetch("route/routes.php", {
             method: "POST",
             body: formData,
