@@ -15,31 +15,35 @@ if (isset($_POST['auth']) && isset($_POST['zaloguj'])) {
 
 //Inventory
 if (isset($_GET['inventory'])) {
-    $user = $util->testInput($_GET['login']);
-    $user = $util->empty2Null($user);
-    $title ="";
-    $author_name = "";
-    $author_surname = "";
-    $isbn = "";
-    $category_id = "";
-    if(isset($_GET['title'])){
-        $title = $util->testInput($_GET['title']);
-    }
-    if(isset($_GET['author_name'])){
-        $author_name = $util->testInput($_GET['author_name']);
-    }
-    if(isset($_GET['author_surname'])){
-        $author_surname = $util->testInput($_GET['author_surname']);
-    }
-    if(isset($_GET['isbn'])){
-        $isbn = $util->testInput($_GET['isbn']);
-    }
-    if(isset($_GET['category_id'])){
-        $category_id = $util->testInput($_GET['category_id']);
-    }
-    echo $listInventoryAction->action($db_connection, $user, $title, $author_name, $author_surname, $isbn, $category_id);
-}
 
+    try {
+        $user = $util->testInput($_GET['login']);
+        $user = $util->empty2Null($user);
+        $title = "";
+        $author_name = "";
+        $author_surname = "";
+        $isbn = "";
+        $category_id = "";
+        if (isset($_GET['title'])) {
+            $title = $util->testInput($_GET['title']);
+        }
+        if (isset($_GET['author_name'])) {
+            $author_name = $util->testInput($_GET['author_name']);
+        }
+        if (isset($_GET['author_surname'])) {
+            $author_surname = $util->testInput($_GET['author_surname']);
+        }
+        if (isset($_GET['isbn'])) {
+            $isbn = $util->testInput($_GET['isbn']);
+        }
+        if (isset($_GET['category_id'])) {
+            $category_id = $util->testInput($_GET['category_id']);
+        }
+        echo $listInventoryAction->action($db_connection, $user, $title, $author_name, $author_surname, $isbn, $category_id);
+    }catch (Exception $exception) {
+        echo $util->showMessage('danger', $exception->getMessage());
+    }
+}
 if (isset($_GET['book']) && isset($_GET['id'])) {
     $user = $util->testInput($_GET['login']);
     //$user = $util->empty2Null($user);

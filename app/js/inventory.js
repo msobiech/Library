@@ -24,6 +24,7 @@ searchForm.addEventListener("submit", async (e) => {
         return false;
     } else {
         document.getElementById("search-btn").value = "Czekaj...";
+        let login = getCookie("login");
         const book = document.getElementById("search-book").value;
         const author_name = document.getElementById("search-author-name").value;
         const author_surname = document.getElementById("search-author-surname").value;
@@ -65,7 +66,7 @@ searchForm.addEventListener("submit", async (e) => {
                 method: "GET",
             });
             tbody.innerHTML = await searched_result.text();
-            console.log("pytanie wykoanane")
+            console.log("pytanie wykonane")
             showAlert.innerHTML = showMessage("success", kryteria);
         }
         document.getElementById("search-btn").value = "Szukaj";

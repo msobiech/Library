@@ -2,7 +2,7 @@
 
 namespace Actions\Book;
 use PDO;
-
+use Exception;
 class ListInventoryAction
 {
 
@@ -15,7 +15,7 @@ class ListInventoryAction
         if($user) {
             $user = htmlspecialchars(strip_tags($user));
             $user_id = '';
-            $user_query = 'SELECT user_id FROM Sessions  WHERE sessid = :login';
+            $user_query = 'SELECT user_id FROM Sessions WHERE sessid = :login';
             $uquery = $db->prepare($user_query);
             $uquery->bindValue(':login', $user, PDO::PARAM_STR);
             $uquery->execute();
@@ -25,7 +25,7 @@ class ListInventoryAction
                 }
             }
             if($user_id==''){
-                throw new Exception('Nie znaleziono uzytkownika', 1);
+                throw new Exception('Nie znaleziono uzytkownika' . $user, 1);
             }
         }
 
