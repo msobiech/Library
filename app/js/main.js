@@ -36,6 +36,7 @@ loginForm.addEventListener("submit", async (e) => {
         const loginStatus = await data.text();
         if (loginStatus.length === 256) {
             manageCookie.setCookie("login", loginStatus, 7);
+
             loginForm.reset();
             loginForm.classList.remove("was-validated");
             //enable menu

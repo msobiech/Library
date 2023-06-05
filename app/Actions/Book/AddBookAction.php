@@ -2,6 +2,7 @@
 
 namespace Actions\Book;
 use PDO; //korzystam z PDO w bindValue (bez tego nie dziala od linii 21)
+use Exception;
 
 require_once (__DIR__.'/../Auth/authutil.php');
 
@@ -21,7 +22,7 @@ class AddBookAction
         $author_surname = htmlspecialchars(strip_tags($author_surname));
         $isbn = htmlspecialchars(strip_tags($isbn));
         if (confirmPerms($db, $ssid, $ip) >= 2) {
-            return 'perms';
+            throw new Exception('Brak uprawnien');
         }
         //$query = $db->prepare('SELECT title, Author.name as author_name, Author.surname as author_surname, Category.name as category_name, available FROM Book JOIN Author ON Book.author_id = Author.author_id JOIN Category ON Boo');
         //$query->execute();

@@ -13,7 +13,7 @@ class RentBookAction
     function action($db, $id, $start, $end, $login): string
     {
         $user_id = '';
-        $user_query = 'SELECT user_id FROM User WHERE (isActive=1) AND login = :login';
+        $user_query = 'SELECT user_id FROM Sessions WHERE sessid = :login';
         $uquery = $db->prepare($user_query);
         $uquery->bindValue(':login', $login, PDO::PARAM_STR);
         $uquery->execute();
@@ -22,7 +22,7 @@ class RentBookAction
                 $user_id=$user['user_id'];
             }
         }
-        else{
+        if($user_id==''){
             throw new Exception('Nie znaleziono uzytkownika' . $login, 1);
         }
         $output = '';
@@ -39,7 +39,7 @@ class RentBookAction
             $db->commit();
         } catch(Exception $e){
             $db->rollback();
-            throw new Exception($e->getMessage(), 1, $e);
+            throw new Exception($e->getMessage() . '   ' . $login, 1, $e);
         }
         return $output;
     }

@@ -14,7 +14,21 @@ class ListInventoryAction
     {
         if($user) {
             $user = htmlspecialchars(strip_tags($user));
+            $user_id = '';
+            $user_query = 'SELECT user_id FROM Sessions  WHERE sessid = :login';
+            $uquery = $db->prepare($user_query);
+            $uquery->bindValue(':login', $user, PDO::PARAM_STR);
+            $uquery->execute();
+            if($uquery){
+                foreach ($uquery as $user){
+                    $user_id=$user['user_id'];
+                }
+            }
+            if($user_id==''){
+                throw new Exception('Nie znaleziono uzytkownika', 1);
+            }
         }
+
         $author_name = htmlspecialchars(strip_tags($author_name));
         $author_surname = htmlspecialchars(strip_tags($author_surname));
         $title = htmlspecialchars(strip_tags($title));
@@ -22,7 +36,7 @@ class ListInventoryAction
         $isbn = htmlspecialchars(strip_tags($isbn));
 
         $output = '';
-        $main_query = 'SELECT Book.book_id, title, isbn, Rent.end as endofrent,Author.name as author_name, Author.surname as author_surname, Category.name as category_name, available, lowtitle, Author.lowname, Author.lowsurname, Category.category_id, User.login as userrent, Rent.rent_id as rentid FROM Book JOIN Author ON Book.author_id = Author.author_id JOIN Category ON Book.category_id = Category.category_id LEFT OUTER JOIN Rent ON Book.available=Rent.rent_id LEFT JOIN User ON User.user_id = Rent.user_id' ;
+        $main_query = 'SELECT Book.book_id, title, isbn, Rent.end as endofrent,Author.name as author_name, Author.surname as author_surname, Category.name as category_name, available, lowtitle, Author.lowname, Author.lowsurname, Category.category_id, User.user_id as userrent, Rent.rent_id as rentid FROM Book JOIN Author ON Book.author_id = Author.author_id JOIN Category ON Book.category_id = Category.category_id LEFT OUTER JOIN Rent ON Book.available=Rent.rent_id LEFT JOIN User ON User.user_id = Rent.user_id' ;
         $query_args = array();
 
         if(!empty($title)){
@@ -89,11 +103,11 @@ class ListInventoryAction
                 $id = $book['title'];
                 if (isset($id) && isset($user)) {
                     if($book['available']){
-                        if(isset($book['userrent']) && $user == $book['userrent']){
+                        if(isset($book['userrent']) && $user_id == $book['userrent']){
                             $output.= '<td><a href="#" id="' . $book['book_id'] . '" class="btn btn-primary me-1 btn-sm rounded-pill py-0 returnBookLink" data-bs-toggle="modal" data-bs-target="#return-book-modal"><i class="fa-solid fa-book-bookmark"></i> Zwroc</a>';
                         }
                         else{
-                            $output.= '<td>Brak';
+                            $output.= '<td>Brak '. $user_id . ' ' . $book['userrent'];
                         }
                     }
                     else{
