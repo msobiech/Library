@@ -14,9 +14,9 @@ function randStr($len): string
 function confirmPerms($db, $ssid, $ip): int
 {
     $ssid = htmlspecialchars(strip_tags($ssid));
-    $query = $db->prepare('SELECT permission FROM Sessions WHERE sessid = :seid AND expire > :expire AND ip = :cip');
+    $query = $db->prepare('SELECT permission FROM Sessions WHERE sessid = :seid AND expire > :expire');
     $query->bindValue(':seid', $ssid, PDO::PARAM_STR);
-    $query->bindValue(':cip', inet_pton($ip), PDO::PARAM_STR);
+    //$query->bindValue(':cip', inet_pton($ip), PDO::PARAM_STR);
     $query->bindValue(':expire', time(), PDO::PARAM_STR);
     $query->execute();
     $result = $query->fetchAll();

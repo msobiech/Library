@@ -29,9 +29,9 @@ class LoginAction
             $sessid = randStr(256);
             try {
                 $db->begintransaction();
-                $query2 = $db->prepare('INSERT INTO Sessions (sessid, ip, user_id, permission, expire) VALUES (:ssid, :cip, :usid, :perms, :exp)');
+                $query2 = $db->prepare('INSERT INTO Sessions (sessid, user_id, permission, expire) VALUES (:ssid, :usid, :perms, :exp)');
                 $query2->bindValue(':ssid', $sessid, PDO::PARAM_STR);
-                $query2->bindValue(':cip', inet_pton($ip), PDO::PARAM_STR);
+                //$query2->bindValue(':cip', inet_pton($ip), PDO::PARAM_STR);
                 $query2->bindValue(':usid', $useri[0]['user_id'], PDO::PARAM_INT);
                 $query2->bindValue(':perms', $useri[0]['permission'], PDO::PARAM_INT);
                 $query2->bindValue(':exp', time(), PDO::PARAM_INT);
