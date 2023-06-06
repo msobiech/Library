@@ -16,13 +16,13 @@ include('Actions/Book/BookDetailsAction.php');
 include('Actions/Book/RentBookAction.php');
 include('Actions/Book/ReturnBookAction.php');
 include ('Actions/Category/ListCategoryAction.php');
-include('Actions/Auth/SignupAction.php');
+include ('Actions/Auth/SignupAction.php');
 
 //global $db_connection;
 
 
 try {
-    define('DB_HOST', 'mysql:host=mariadb;dbname=Library;'); //host->adres bazy danych dbname->nazwa bazy danych (u mnie mariadb)
+    define('DB_HOST', 'mysql:host=0.0.0.0;dbname=Library;'); //host->adres bazy danych dbname->nazwa bazy danych (u mnie mariadb)
     define('DB_USER', 'user-new');
     define('DB_PASSWORD', 'password2');
     define('PDO_ATTR', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"]);

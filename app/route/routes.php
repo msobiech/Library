@@ -17,7 +17,12 @@ if (isset($_POST['auth']) && isset($_POST['zaloguj'])) {
 if(isset($_POST['zarejestruj'])){
     $login = $_POST['login'];
     $password = $_POST['password'];
-    echo $signupAction->action($db_connection, $login, $password);
+    try{
+        echo $signupAction->action($db_connection, $login, $password);
+    }catch(Exception $exception) {
+        echo $util->showMessage('danger', $exception->getMessage());
+    }
+
 }
 
 //Inventory

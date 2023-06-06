@@ -100,6 +100,7 @@ signupForm.addEventListener("submit", async (e) =>{
             e.preventDefault();
             e.stopPropagation();
             signupForm.reset();
+            signupModal.hide();
         }
     }
 });
