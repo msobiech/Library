@@ -5,6 +5,9 @@ const mainHeader = document.getElementById("main-header");
 const loginModal = new bootstrap.Modal(document.getElementById("login-modal"));
 const loginForm = document.getElementById("login-form");
 
+const signupModal = new bootstrap.Modal(document.getElementById("signup-modal"));
+const signupForm = document.getElementById("signup-form");
+
 const logoutBtn = document.getElementById("logout-btn");
 
 const showAlert = document.getElementById("show-alert");
@@ -47,13 +50,57 @@ loginForm.addEventListener("submit", async (e) => {
             loginModal.hide();
             reload();
         } else {
-            alert(loginStatus);//"Nieprawidlowe dane do logowania lub uzytkownik nie istnieje");
+            console.log(loginStatus);
+            //alert(loginStatus);//"Nieprawidlowe dane do logowania lub uzytkownik nie istnieje");
+            showAlert.innerHTML = showMessage("danger", loginStatus);
             e.preventDefault();
             e.stopPropagation();
             loginForm.reset();
         }
 
 
+    }
+});
+
+//signup
+signupForm.addEventListener("submit", async (e) =>{
+    e.preventDefault();
+    if(signupForm.checkValidity() === false) {
+        e.preventDefault();
+        e.stopPropagation();
+        signupForm.classList.add("was-validated");
+    } else {
+        const formData = new FormData(signupForm);
+        formData.append("zarejestruj", "1");
+        const login = document.getElementById("signup-login").value;
+        formData.append("login",login);
+        formData.append("password",document.getElementById("signup-password").value);
+        const data = await fetch("route/routes.php", {
+            method: "POST",
+            body: formData,
+        });
+        const loginStatus = await data.text();
+        if (loginStatus.length === 256) {
+            //chyba nie trzeba nic robic z cookies
+            //manageCookie.setCookie("login", loginStatus, 7);
+
+            signupForm.reset();
+            signupForm.classList.remove("was-validated");
+
+            signupModal.hide();
+            reload();
+        } else {
+            console.log(loginStatus);
+            //alert(loginStatus);//"Nieprawidlowe dane do logowania lub uzytkownik nie istnieje");
+            if(loginStatus == "Pomyślnie utworzono konto"){
+                showAlert.innerHTML = showMessage("success", loginStatus);
+            }else {
+                showAlert.innerHTML = showMessage("danger", loginStatus);
+            }
+            e.preventDefault();
+            e.stopPropagation();
+            signupForm.reset();
+        }
     }
 });
 
@@ -71,6 +118,10 @@ logoutBtn.addEventListener("click", async(e) => {
     fetchAll();
 });
 
+function showMessage(type, message, action) {
+    return '<div class="alert alert-'  + type + ' alert-dismissible fade show" role="alert">' +
+        '<strong>' + message + '</strong></div>';
+}
 
 function reload() {
     showAlert.innerHTML = "";

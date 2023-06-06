@@ -214,6 +214,33 @@
     </div>
 </div>
 
+<!-- Zarejestruj sie -->
+<div class="modal fade" id="signup-modal" tabindex="-1" role="dialog" aria-labelledby="signup">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <!--<div class="card border-0 shadow rounded-3 my-5">-->
+            <div class="card-body p-4 p-sm-5">
+                <h5 class="card-title text-center mb-5 fw-light fs-5">Zarejestruj się</h5>
+                <form id="signup-form">
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="signup-login" placeholder="name@example.com" required>
+                        <label for="login">Adres Email</label>
+                        <div class="invalid-feedback">Wprowadź @ w adresie email!</div>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" id="signup-password" placeholder="Password" required>
+                        <label for="password">Hasło</label>
+                        <div class="invalid-feedback">Hasło jest wymagane!</div>
+                    </div>
+                    <div class="d-grid">
+                        <button class="btn btn-primary btn-lg btn-login text-uppercase fw-bold" type="submit">Zarejestruj się</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Login Modal End -->
 <div class="container">
     <div class="row mt-4">
@@ -230,6 +257,9 @@
                 </div>
                 <div>
                     <button id="login-btn" class="btn btn-outline btn-lg me-0 pe-0" type="button" data-bs-toggle="modal" data-bs-target="#login-modal"><i class="fas fa-sign-in-alt"></i> Zaloguj</button>
+                </div>
+                <div>
+                    <button id="signup-btn" class="btn btn-outline-secondary btn-lg me-0 pe-0" type="button" data-bs-toggle="modal" data-bs-target="#signup-modal"><i class="fas fa-sign-in-alt"></i> Zarejestruj się</button>
                 </div>
                 <div>
                     <button id="logout-btn" class="btn btn-outline-secondary btn-lg me-0 pe-0 d-none" type="button"><i class="fas fa-sign-out-alt"></i> Wyloguj</button>
