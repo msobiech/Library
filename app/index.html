@@ -78,6 +78,16 @@
                         <label for="search-book">Ksiazka</label>
                     </div>
                     <div class="form-floating mb-2">
+
+                        <select id="search-sort-dict" class="form-select" name="search-sort-dict" aria-label="Sortowanie">
+                            <option value="1" id="search-sort-dict-option-1">Sortuj alfabetycznie po tytułach</option>
+                            <option value="2" id="search-sort-dict-option-2">Sortuj malejąco po tytułach</option>
+                            <option value="3" id="search-sort-dict-option-3">Sortuj alfabetycznie po autorach</option>
+                            <option value="4" id="search-sort-dict-option-4">Sortuj malejąco po autorach</option>
+                        </select>
+                        <label for="search-sort-dict">Sortowanie</label>
+                    </div>
+                    <div class="form-floating mb-2">
                         <input type="text" id="search-author-name" name="search-author-name" class="form-control form-control-lg" data-bs-toggle="tooltip" title="Wprowadź fragment imienia autora." placeholder="Imie Autora">
                         <label for="search-author-name">Imie Autora</label>
                     </div>

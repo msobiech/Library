@@ -36,6 +36,7 @@ if (isset($_GET['inventory'])) {
         $author_surname = "";
         $isbn = "";
         $category_id = "";
+        $sort_type = "";
         if (isset($_GET['title'])) {
             $title = $util->testInput($_GET['title']);
         }
@@ -51,7 +52,10 @@ if (isset($_GET['inventory'])) {
         if (isset($_GET['category_id'])) {
             $category_id = $util->testInput($_GET['category_id']);
         }
-        echo $listInventoryAction->action($db_connection, $user, $title, $author_name, $author_surname, $isbn, $category_id);
+        if(isset($_GET['sort_type'])){
+            $sort_type = $util->testInput($_GET['sort_type']);
+        }
+        echo $listInventoryAction->action($db_connection, $user, $title, $author_name, $author_surname, $isbn, $category_id, $sort_type);
     }catch (Exception $exception) {
         echo $util->showMessage('danger', $exception->getMessage());
     }
