@@ -47,6 +47,7 @@ loginForm.addEventListener("submit", async (e) => {
             //hide login and show logout
             document.getElementById("login-btn").classList.add("d-none");
             document.getElementById("logout-btn").classList.remove("d-none");
+            document.getElementById("signup-btn").classList.add("d-none");
             loginModal.hide();
             reload();
         } else {
