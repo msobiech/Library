@@ -30,8 +30,8 @@ searchForm.addEventListener("submit", async (e) => {
         const author_surname = document.getElementById("search-author-surname").value;
         const category = document.getElementById("search-categories-dict").value;
         const isbn = document.getElementById("search-isbn").value;
-
-        if (isEmpty(book) && isEmpty(author_name) && isEmpty(category) && isEmpty(isbn) && isEmpty(author_surname)) {
+        const sort = document.getElementById("search-sort-dict").value;
+        if (isEmpty(book) && isEmpty(author_name) && isEmpty(category) && isEmpty(isbn) && isEmpty(author_surname) && isEmpty(sort)) {
             await fetchAll();
             showAlert.innerHTML = showMessage("danger", "Proszę wypełnić conajmniej jedno pole!");
             console.log("Pusty formularz!");
@@ -57,6 +57,11 @@ searchForm.addEventListener("submit", async (e) => {
             if(!isEmpty(category) && category != "-1"){
                 kryteria = kryteria + "Gatunek: " + category;
                 params = params + '&category_id=' + category;
+            }
+            if(!isEmpty(sort) && sort !="-1"){
+                const sort_label = document.getElementById("search-sort-dict-option-"+sort).text;
+                kryteria = kryteria + "Sortowanie: " + sort_label;
+                params = params + '&sort_type=' + sort;
             }
             kryteria = kryteria +"]";
             console.log(params);

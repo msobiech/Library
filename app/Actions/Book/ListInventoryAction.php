@@ -10,7 +10,7 @@ class ListInventoryAction
     {
     }
 
-    function action($db, $user, $title, $author_name, $author_surname, $isbn, $category_id): string
+    function action($db, $user, $title, $author_name, $author_surname, $isbn, $category_id, $sort_type): string
     {
         if($user) {
             $user = htmlspecialchars(strip_tags($user));
@@ -65,7 +65,19 @@ class ListInventoryAction
         for($i = 1; $i < count($query_args); $i++) {
             $search_query = $search_query . ' and ' . $query_args[$i];
         }
-        $search_query = $main_query . $search_query . ' ORDER BY Book.title, Author.surname';
+        $search_query = $main_query . $search_query;
+
+        if(empty($sort_type) || $sort_type == -1){
+            $search_query = $search_query . ' ORDER BY Book.title, author_surname';
+        }else if($sort_type == 1){
+            $search_query = $search_query . ' ORDER BY Book.title';
+        }else if($sort_type == 2){
+            $search_query = $search_query . ' ORDER BY Book.title DESC';
+        }else if($sort_type == 3){
+            $search_query = $search_query . ' ORDER BY author_name, author_surname';
+        }else if($sort_type == 4){
+            $search_query = $search_query . ' ORDER BY author_name DESC, author_surname DESC';
+        }
 
         //echo $search_query;
 
