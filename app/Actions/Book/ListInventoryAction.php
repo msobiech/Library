@@ -107,7 +107,7 @@ class ListInventoryAction
                             $output.= '<td><a href="#" id="' . $book['book_id'] . '" class="btn btn-primary me-1 btn-sm rounded-pill py-0 returnBookLink" data-bs-toggle="modal" data-bs-target="#return-book-modal"><i class="fa-solid fa-book-bookmark"></i> Zwroc</a>';
                         }
                         else{
-                            $output.= '<td>Brak '. $user_id . ' ' . $book['userrent'];
+                            $output.= '<td>Brak';
                         }
                     }
                     else{

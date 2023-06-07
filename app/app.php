@@ -7,6 +7,7 @@ use Actions\Book\BookDetailsAction;
 use Actions\Book\RentBookAction;
 use Actions\Book\ReturnBookAction;
 use Actions\Category\ListCategoryAction;
+use Actions\Auth\SignupAction;
 
 include('Actions/Auth/LoginAction.php');
 include('Actions/Book/ListInventoryAction.php');
@@ -15,6 +16,7 @@ include('Actions/Book/BookDetailsAction.php');
 include('Actions/Book/RentBookAction.php');
 include('Actions/Book/ReturnBookAction.php');
 include ('Actions/Category/ListCategoryAction.php');
+include ('Actions/Auth/SignupAction.php');
 
 //global $db_connection;
 
@@ -37,3 +39,4 @@ $BookDetailsAction = new BookDetailsAction();
 $listCategoryAction = new ListCategoryAction();
 $RentBookAction = new RentBookAction();
 $ReturnBookAction = new ReturnBookAction();
+$signupAction = new SignupAction();

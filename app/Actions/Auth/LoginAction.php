@@ -23,7 +23,7 @@ class LoginAction
         if(!empty($useri)){
             $passhash = $useri[0]['passwordhash'];
         } else{
-            return 'false';
+            return 'Próba logowania zakończyła się niepowodzeniem';
         }
         if (password_verify($password, $passhash)) {
             $sessid = randStr(256);
@@ -43,7 +43,7 @@ class LoginAction
             }
             return $sessid;
         } else {
-            return 'false';
+            return 'Próba logowania zakończyła się niepowodzeniem';
         }
     }
 }

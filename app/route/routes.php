@@ -13,6 +13,18 @@ if (isset($_POST['auth']) && isset($_POST['zaloguj'])) {
     echo $loginAction->action($db_connection, $login, $password, $_SERVER['REMOTE_ADDR']);
 }
 
+//rejestracja
+if(isset($_POST['zarejestruj'])){
+    $login = $_POST['login'];
+    $password = $_POST['password'];
+    try{
+        echo $signupAction->action($db_connection, $login, $password);
+    }catch(Exception $exception) {
+        echo $util->showMessage('danger', $exception->getMessage());
+    }
+
+}
+
 //Inventory
 if (isset($_GET['inventory'])) {
 
