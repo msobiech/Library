@@ -19,7 +19,7 @@ class ListCategoryAction
         if ($categories) {
             foreach ($categories as $category) {
 
-                $output .= '<option value="' . $category['category_id'] . '":>' . $category['name'] . '</option>';
+                $output .= '<option value="' . $category['category_id'] . '" id="search-category-dict-option-' . $category['category_id'] .'">' . $category['name'] . '</option>';
             }
         } else {
             //Brak Slownika Gatunkow

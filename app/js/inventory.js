@@ -55,12 +55,13 @@ searchForm.addEventListener("submit", async (e) => {
                 params = params + '&isbn=' + isbn;
             }
             if(!isEmpty(category) && category != "-1"){
-                kryteria = kryteria + "Gatunek: " + category;
+                const category_label = document.getElementById("search-category-dict-option-"+category).text;
+                kryteria = kryteria + "Gatunek: " + category_label + " ";
                 params = params + '&category_id=' + category;
             }
             if(!isEmpty(sort) && sort !="-1"){
                 const sort_label = document.getElementById("search-sort-dict-option-"+sort).text;
-                kryteria = kryteria + "Sortowanie: " + sort_label;
+                kryteria = kryteria + "Sortowanie: " + sort_label + " ";
                 params = params + '&sort_type=' + sort;
             }
             kryteria = kryteria +"]";
